@@ -1,5 +1,3 @@
-# Setup s3 and dynamodb for statefile storage and locking
-
 # Commands to manually migrate the local state file to aws
 
 - Create S3 bucket
