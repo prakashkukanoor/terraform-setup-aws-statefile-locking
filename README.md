@@ -6,10 +6,26 @@
 ```
 aws s3api create-bucket --bucket tf-setup-prod-networking --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
 ```
+
 - Enable versioning on the bucket
 ```
 aws s3api put-bucket-versioning --bucket tf-setup-prod-networking --versioning-configuration Status=Enabled
 ```
+
+- Enable versioning on the bucket
+```
+aws s3api put-bucket-encryption --bucket my-terraform-state-bucket --server-side-encryption-configuration '{
+  "Rules": [
+    {
+      "ApplyServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+      }
+    }
+  ]
+}'
+
+```
+
 - Block public access to the bucket
 ```
 aws s3api put-bucket-policy --bucket my-terraform-state-bucket --policy '{
