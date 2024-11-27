@@ -56,3 +56,17 @@ resource "aws_s3_bucket_policy" "this" {
   policy = jsonencode(local.policies.policy_statement)
 
 }
+
+# DynamoDB table for state locking
+resource "aws_dynamodb_table" "terraform_locks" {
+  name           = "${var.dynamodb_table_name}"
+  billing_mode   = "PAY_PER_REQUEST" # On-demand billing mode for simplicity
+  hash_key       = "LockID"          # Primary key for the table
+
+  attribute {
+    name = "LockID"
+    type = "S" # String type
+  }
+
+  tags = local.common_tags
+}
